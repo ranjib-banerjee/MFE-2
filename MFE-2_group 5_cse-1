@@ -1,0 +1,51 @@
+Codes for Graphs: 
+1) library(ggplot2)
+v<-c(5.65,5.66,5.67,5.60,5.61,5.55,5.41,5.33,5.27,7.11)
+ x<-c(2011,2012,2013,2014,2015,2016,2017,2018,2019,2020)
+data <- data.frame(x,v)
+ggplot(data, aes(x=x, y=v)) +geom_line()
+
+2) x <- c(2016,2017,2018,2019,2020)
+ y <- c(8.29169,4.50833,6.03333,7.325,10.225)
+df<-data.frame(x,y)
+colnames(df)<-c("YEAR","Mean")
+df
+barplot(height=df$"Mean ",main="Mean ",col="yellow")
+
+3) x <- c(2016,2017,2018,2019,2020)
+y <- c(5.51,5.41,5.33,5.27,7.11)
+df<-data.frame(x,y)
+colnames(df)<-c("YEAR","UN-EMPLOYEEMENT RATE")
+df
+barplot(height=df$"UN-EMPLOYEEMENT RATE",main="UN-EMPLOYEEMENT RATE",col="red")
+
+4) x <- c(2016,2017,2018,2019,2020)
+y <- c(1.0874,0.62777,0.61689,0.46211,5.62911)
+df<-data.frame(x,y)
+colnames(df)<-c("YEAR","Standard Deviation")
+df
+barplot(height=df$" Standard Deviation ",main="Standard Deviation",col="green")
+
+T-test analysis Code :
+rate2020<-c(7.2,7.8,8.8,23.5,21.7,10.2,7.4,8.3,6.7,7.0,6.5,9.1)
+rate2021<-c(6.5,6.9,6.5,8.0,11.8,9.2,7.0,8.3,6.9,7.7,7.0,7.9)
+# null hypothesis 
+#       Ho :  mean of rate2020 = mean of rate2021
+# alternating hyphotesis  
+#       Ha : mean of rate2020 < mean of rate2021
+
+# t testing
+t.test(rate2020,alternative = 'less', mu=mean(rate2021)
+
+Data Set
+India Unemployment Rate - Historical Data
+Year	Unemployment Rate (%)	Annual Change
+2020	7.11%	                  1.84%
+2019	5.27%	                  -0.06%
+2018	5.33%	                  -0.08%
+2017	5.41%	                  -0.10%
+2016	5.51%	                  -0.05%
+2015	5.56%                   -0.04%
+
+montly dataset of unemployment rate in in india:
+https://unemploymentinindia.cmie.com/kommon/bin/sr.php?kall=wsttimeseries&index_code=050050000000&dtype=total
