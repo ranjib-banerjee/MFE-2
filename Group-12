@@ -1,0 +1,59 @@
+#Summarise data
+summary(crimesstl)
+ 
+#Make a data frame (a data structure) with crimes by crime type
+dt <- data.frame(cnt=crimesstl$count, group=crimesstl$crimetype)
+#save these grouped data to a variable so you can use it other commands
+grp <- group_by(dt, group)
+ 
+#Summarise data from library (dplyr)
+#Summarise the number of counts for each group
+summarise(grp, sum=sum(cnt))
+#transpose the table
+tapply(crimesstl$count, crimesstl$crimetype,sum)
+
+#Descriptive analysis
+#Barchart of crimes by month
+countsmonth <- table(crimesstl$month)
+barplot(countsmonth, col="grey", main="Number of Crimes by Month",xlab="Month",ylab="Number of Crimes")
+
+#Barchart of crimes by year
+countsyr <- table(crimesstl$year)
+barplot(countsyr, col="darkcyan", main="Number of Crimes by Year",xlab="Year",ylab="Number of Crimes")
+ 
+#Barchart of crimes by crimetype
+counts <- table(crimesstl$crimetype)
+barplot(counts, col = "cornflowerblue", main = "Number of Crimes by Crime Type", xlab="Crime Type", ylab="Number of Crimes")
+ 
+#BoxPlots are useful for comparing data.
+#Use the dataset crimeStLouis20132014b_agg.csv. 
+#These data are aggregated by neighbourhood. 
+agg_crime_file <-paste(file_dir_crime,"crimeStLouis20132014b_agg.csv", sep = "")
+#check everything worked ok with accessing the file
+file.exists(agg_crime_file)
+crimesstlagg <- read.csv(agg_crime_file, header=TRUE,sep=",")
+ 
+#Compare crimetypes
+boxplot(count~crimetype, data=crimesstlagg,main="Boxplots According to Crime Type",
+            xlab="Crime Type", ylab="Number of Crimes",
+            col="cornsilk", border="brown", pch=19)
+ 
+ 
+#Create an interactive map that plots the crime points on a background map.
+ 
+#This will create a map with all of the points
+gis_file <- paste(file_dir_gis,"stl_boundary_ll.shp", sep="")
+file.exists(gis_file)
+ 
+#Read the St Louis Boundary Shapefile
+StLouisBND <- readOGR(gis_file, layer = "stl_boundary_ll", GDAL1_integer64_policy = FALSE)
+ 
+leaflet(crimesstl) %>%
+  addTiles() %>%
+  addPolygons(data=StLouisBND, color = "#444444", weight = 3, smoothFactor = 0.5,
+	              opacity = 1.0, fillOpacity = 0.5, fill= FALSE,
+	              highlightOptions = highlightOptions(color = "white", weight = 2,
+	                                                  bringToFront = TRUE)) %>%
+  addCircles(lng = ~xL, lat = ~yL, weight = 7, radius = 5, 
+	popup = paste0("Crime type: ", as.character(crimesstl$crimetype), 
+	                          "; Month: ", as.character(crimesstl$month)))
