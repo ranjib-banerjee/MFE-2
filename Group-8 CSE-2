@@ -1,0 +1,6 @@
+t1<-rnorm(200,3.944,0.6987)
+t2<-rnorm(200,3.88,0.7432)
+t.test(t1,t2,var.equal = TRUE)
+t1<-rnorm(200,4,0.5831)
+t2<-rnorm(200,3.88,0.7432)
+t.test(t1,t2,var.equal = TRUE)
