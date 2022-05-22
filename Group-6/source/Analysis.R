@@ -4,7 +4,7 @@ library(ggthemes)
 library(dplyr)
 library(plyr)
 library(tidyr)
-data = read_csv("C:\\Users\\Kartik\\Desktop\\school\\mfe\\project-R\\startup_funding.csv", na=c("N/A", "Undisclosed", "NaN", "undisclosed", "unknown"))
+data = read_csv("startup_funding.csv", na=c("N/A", "Undisclosed", "NaN", "undisclosed", "unknown"))
 print(spec(data))
 #Data Cleaning
 data$`Industry Vertical`[data$`Industry Vertical` == 'ECommerce'] = "eCommerce"
