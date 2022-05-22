@@ -1,0 +1,172 @@
+FOR SEASONAL ANALYSIS BAR GRAPH:
+library(prob)
+library(distr)
+library(distrEx)
+library(ggplot2)
+library(readr)
+library(dplyr)
+library(sfsmisc)
+library(sf)
+library(magrittr)
+data <- read_csv("Documents/data10.csv")
+View(data)
+glimpse(data)
+head(data)
+library(ggthemes)
+library(forcats)
+data %>%
+  select(one_of('SUBDIVISION','ANNUAL_AVG_JAN_TO_FEB')) %>%
+  arrange(desc(ANNUAL_AVG_JAN_TO_FEB)) %>%
+  head(37) %>%
+  mutate(SUBDIVISION = fct_reorder(SUBDIVISION,ANNUAL_AVG_JAN_TO_FEB)) %>%
+  ggplot() + geom_col(aes(y = SUBDIVISION,x =ANNUAL_AVG_JAN_TO_FEB), fill = 'pink') +
+  geom_label(aes(y = SUBDIVISION,x =ANNUAL_AVG_JAN_TO_FEB, label = ANNUAL_AVG_JAN_TO_FEB), fill = 'orange')+
+  labs(title = 'Annual rainfall in different states',
+       subtitle = 'from JAN-FEB',
+       caption = '') +
+  theme_hc(style = 'darkunica') +
+  theme_economist() +
+  theme(axis.text.x = element_text(color = 'blue'),
+        axis.text.y = element_text(color = 'blue'))+
+  xlim(0,200)
+
+FOR PIE CHART:
+
+library(plotrix)
+
+percentages <- c(3087.383333
+                 ,833.9333333
+                 ,2598.216667
+                 ,1021.05
+                 ,1445.716667
+                 ,3317.42
+                 ,663.3833333
+                 ,744.4)
+labels <- c("ANDAMAN & NICOBAR ISLANDS"
+            ,"TAMIL NADU"
+            ,"KERALA"
+            ,"COASTAL ANDHRA PRADESH"
+            ,"LAKSHADWEEP"
+            ,"COASTAL KARNATAKA"
+            ,"NORTH INTERIOR KARNATAKA"
+            ,"RAYALSEEMA")
+
+piepercent<- round(100 * percentages / sum(percentages), 1)
+
+pie3D(percentages, labels = piepercent,
+      main = "Average annual rainfall in different states", col = rainbow(length(percentages)))
+legend("topright", c("ANDAMAN & NICOBAR ISLANDS"
+                     ,"TAMIL NADU"
+                     ,"KERALA"
+                     ,"COASTAL ANDHRA PRADESH"
+                     ,"LAKSHADWEEP"
+                     ,"COASTAL KARNATAKA"
+                     ,"NORTH INTERIOR KARNATAKA"
+                     ,"RAYALSEEMA"),
+       cex = 0.5, fill = rainbow(length(percentages)))
+
+FOR MEAN ,STANDARD DEVIATION ,RANGE ANALYSIS:
+
+library("data.table")  
+data <- fread("/Users/karthikrajanichenametla/Downloads/P & S PROJECT.csv",select = c("JAN","FEB","MAR","APR","MAY","JUNE","JULY","AUG","SEP","OCT","NOV","DEC"))
+data
+mean(data$JAN)
+sd(data$JAN)
+a1<-min(data$JAN)
+a1
+b1<-max(data$JAN)
+b1
+range1<-b1-a1
+range1
+mean(data$FEB)
+sd(data$FEB)
+a2<-min(data$FEB)
+a2
+b2<-max(data$FEB)
+b2
+range2<-b2-a2
+range2	
+mean(data$MAR)
+sd(data$MAR)
+a3<-min(data$MAR)
+a3
+b3<-max(data$MAR)
+b3
+range3<-b3-a3
+range3
+mean(data$APR)
+sd(data$APR)
+a4<-min(data$APR)
+a4
+b4<-max(data$APR)
+b4
+range4<-b4-a4
+range4
+mean(data$MAY)
+sd(data$MAY)
+a5<-min(data$MAY)
+a5
+b5<-max(data$MAY)
+b5
+range5<-b5-a5
+range5
+mean(data$JUNE)
+sd(data$JUNE)
+a6<-min(data$JUNE)
+a6
+b6<-max(data$JUNE)
+b6
+range6<-b6-a6
+range6
+mean(data$JULY)
+sd(data$JULY)
+a7<-min(data$JULY)
+a7
+b7<-max(data$JULY)
+b7
+range7<-b7-a7
+range7
+mean(data$AUG)
+sd(data$AUG)
+a8<-min(data$AUG)
+a8
+b8<-max(data$AUG)
+b8
+range8<-b8-a8
+range8
+mean(data$SEP)
+sd(data$SEP)
+a9<-min(data$SEP)
+a9
+b9<-max(data$SEP)
+b9
+range9<-b9-a9
+range9
+mean(data$OCT)
+sd(data$OCT)
+a10<-min(data$OCT)
+a10
+b10<-max(data$OCT)
+b10
+range10<-b10-a10
+range10
+mean(data$NOV)
+sd(data$NOV)
+a11<-min(data$NOV)
+a11
+b11<-max(data$NOV)
+b11
+range11<-b11-a11
+range11
+mean(data$DEC)
+sd(data$DEC)
+a12<-min(data$DEC)
+a12
+b12<-max(data$DEC)
+b12
+range12<-b12-a12
+range12
+
+
+T-TEST:
+t.test(data$ANNUAL_AVG,data$ANNUAL_AVG_JAN_TO_FEB,mu=0,alternative= 'two.sided')
